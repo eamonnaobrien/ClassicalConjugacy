@@ -1,0 +1,15 @@
+Code to solve conjugacy and centralizer problems for arbitrary elements
+of classical groups. 
+
+We recommend that you read the documentation publicly available in the online magma manual. 
+It is uptodate and contains examples.
+
+Search for example for ClassicalClasses in online magma manual available at 
+http://magma.maths.usyd.edu.au/magma/handbook/
+
+Main page listing functions currently available (November 2023) at 
+http://magma.maths.usyd.edu.au/magma/handbook/text/691#8138
+but this may change as releases occur.
+
+Giovanni de Franceschi, Martin Liebeck, and Eamonn O'Brien 
+November 2023 
