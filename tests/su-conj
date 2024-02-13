@@ -1,0 +1,19 @@
+AttachSpec ("../Classes.spec");
+for d in [2..12] do
+for q in [2,3,4,5,8,9] do 
+ U := UnipotentClasses ("SU", d, q);
+ #U;
+ G := SU(d, q);
+ for i in [1..#U] do 
+ r := U[i][3];
+ x := Random (G); y := Random (G);
+ g := r^x; h := r^y;
+ flag, c := ClassicalIsConjugate (G,g, h);
+assert flag;
+ assert g^c eq h;
+ assert Determinant (c) eq 1;
+ d, q, i;
+ end for;
+end for;
+end for;
+

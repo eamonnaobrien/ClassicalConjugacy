@@ -1,0 +1,42 @@
+load "../../central/start";
+
+ import "/home/eobr007/classes/new-unipotent/util.m": 
+Q_value, MyCommutatorSpace;
+
+import "/home/eobr007/classes/new-unipotent/odd-char.m": 
+Original_Reflection, Original_s; 
+
+import "/home/eobr007/classes/new-unipotent/good-char.m": 
+  A_beta_even, A_beta_even_form,
+  A_beta_odd, A_beta_odd_form;
+
+import "/home/eobr007/classes/new-unipotent/even-char.m": OForm, W_odd, W_even, V_beta_even; 
+
+
+load "../odd/basics.m";
+load "../odd/blocks.m";
+load "../odd/GU-general.m";
+load "../odd/Sp-odd-general.m";
+load "../odd/Sp-odd-general.m";
+load "../odd/Omega-odd-general.m";
+
+load "test-blocks.m";
+
+// even char base cases for Sp and Omega 
+load "Sp-O-V.m";
+load "Sp-W.m";
+load "Sp-W-beta.m";
+load "Omega-W-beta.m"; 
+
+// even char conjugation
+load "even-label.m";
+load "Sp-even-general.m";
+load "Omega-even-general.m";
+
+// decide label in Omega and SO vs GO for odd char 
+load "../odd/SO-Omega-conjugacy.m";
+
+// two main functions 
+load "centraliser.m";
+load "is-conjugate.m";
+

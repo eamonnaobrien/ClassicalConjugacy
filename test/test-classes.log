@@ -1,0 +1,1046 @@
+> 
+> MyRandomConjugate := function (G)
+>    H := sub<Generic (G) | Generators (G)>;
+>    return RandomConjugate (H); 
+> end function;
+> 
+> Z := Integers ();
+> 
+> // how much work?  
+> // run over relevant dimensions from start .. last 
+> start := 2;
+> last := 6;
+> 
+> // separate for unitary case 
+> last_U := 4;
+> last_SL := 5;
+> 
+> TestMap := true;
+> 
+> "Linear groups";
+Linear groups
+> for d in [start..last] do
+>   for q in [2,3,4] do
+>      G := SL (d, q);
+> if Natural then G := MyRandomConjugate (G); end if;
+>      X := Classes (G);
+>      "linear", d, q, "#X is", #X;
+>      for i in [1..#X] do 
+>      g := X[i][3];
+>      x := Random (G);
+>      flag, h := ClassicalIsConjugate (G, g, g^x);
+>      assert flag;
+>      assert h in G;
+>      if not (g^(h) eq g^x) then "Conjugation failed"; end if;;
+>      C := Centralizer (G, g);
+>      assert forall{j: j in [1..Ngens (C)] | C.j in G};
+>      assert IsCentral (C, g);
+>      o := LMGFactoredOrder (C);
+>      a := ClassicalClassSize (G, g);
+>      assert a eq X[i][2];
+>      CO := ClassicalCentraliserOrder (G, g);
+>      assert o eq CO;
+>      end for;
+>   end for;
+> end for;
+linear 2 2 #X is 3
+linear 2 3 #X is 7
+linear 2 4 #X is 5
+linear 3 2 #X is 6
+linear 3 3 #X is 12
+linear 3 4 #X is 28
+linear 4 2 #X is 14
+linear 4 3 #X is 51
+linear 4 4 #X is 84
+linear 5 2 #X is 27
+linear 5 3 #X is 116
+linear 5 4 #X is 335
+linear 6 2 #X is 60
+linear 6 3 #X is 396
+linear 6 4 #X is 1400
+> 
+> "Symplectic groups";
+Symplectic groups
+> for d in [start..last by 2] do
+>    for q in [2,3,4] do
+>      G := Sp (d, q);
+> if Natural then G := MyRandomConjugate (G); end if;
+>      X := Classes (G);
+>      "symplectic", d, q, "#X is", #X;
+>      eta := ClassMap (G);
+>      for i in [1..#X] do 
+>      g := X[i][3];
+>      x := Random (G);
+>      flag, h := ClassicalIsConjugate (G, g, g^x);
+>      assert flag;
+>      assert h in G;
+>      assert g^(h) eq g^x;
+>      C := Centralizer (G, g);
+>      assert forall{j: j in [1..Ngens (C)] | C.j in G};
+>      assert IsCentral (C, g);
+>      o := LMGFactoredOrder (C);
+>      a := ClassicalClassSize (G, g);
+>      assert a eq X[i][2];
+>      CO := ClassicalCentraliserOrder (G, g);
+>      assert o eq CO;
+>      j := eta (X[i][3]^Random (G));
+>      assert j eq i;
+>      end for;
+> if d gt 2 or q gt 3 then 
+>      "Construct unipotent for each ss d =", d, "q = ", q;
+>      Y:=[ClassesForFixedSemisimple (G, X[l][3]):  l in [1..#X] | IsSemisimple 
+(X[l][3])]; 
+>      count := &+[#y: y in Y];
+>      assert count eq #X;
+> end if;
+>   end for;
+> end for;
+symplectic 2 2 #X is 3
+symplectic 2 3 #X is 7
+symplectic 2 4 #X is 5
+Construct unipotent for each ss d = 2 q =  4
+symplectic 4 2 #X is 11
+Construct unipotent for each ss d = 4 q =  2
+symplectic 4 3 #X is 34
+
+ClassicalCentraliserOrder(
+    G: MatrixGroup(4, GF(3)) of order 2^7 * 3^4 * 5,
+    g: [2 0 0 0] [0 2 0 0] [2 1 1 0] [1 2 0 1]
+)
+MyCentraliserOrder(
+    type: Sp,
+    g: [2 0 0 0] [0 1 0 0] [0 0 1 0] [0 0 0 2]
+)
+GenericLabel(
+    type: Sp,
+    x: [2 0 0 0] [0 1 0 0] [0 0 1 0] [0 0 0 2]
+)
+UnipotentLabel(
+    G: Sp(2, GF(3)),
+    g: [1 0] [0 1]
+)
+MyUnipotentClassLabel(
+    G: Sp(2, GF(3)),
+    g: [1 0] [0 1]
+)
+In file "/home/eobr007/new-classes/unipotent/conjugation/../central/odd-sp.m", 
+line 63, column 24:
+>>          if Verify and NRows (K) gt 2 then 
+                          ^
+Runtime error: Undefined reference 'NRows' in package 
+"/home/eobr007/new-classes/unipotent/conjugation/../central/odd-sp.m"
+
+
+
+> exit;
+
+Total time: 5.360 seconds, Total memory usage: 32.09MB
+> 
+> MyRandomConjugate := function (G)
+>    H := sub<Generic (G) | Generators (G)>;
+>    return RandomConjugate (H); 
+> end function;
+> 
+> Z := Integers ();
+> 
+> // how much work?  
+> // run over relevant dimensions from start .. last 
+> start := 2;
+> last := 6;
+> 
+> // separate for unitary case 
+> last_U := 4;
+> last_SL := 5;
+> 
+> TestMap := true;
+> 
+> "Linear groups";
+Linear groups
+> for d in [start..last] do
+>   for q in [2,3,4] do
+>      G := SL (d, q);
+> if Natural then G := MyRandomConjugate (G); end if;
+>      X := Classes (G);
+>      "linear", d, q, "#X is", #X;
+>      for i in [1..#X] do 
+>      g := X[i][3];
+>      x := Random (G);
+>      flag, h := ClassicalIsConjugate (G, g, g^x);
+>      assert flag;
+>      assert h in G;
+>      if not (g^(h) eq g^x) then "Conjugation failed"; end if;;
+>      C := Centralizer (G, g);
+>      assert forall{j: j in [1..Ngens (C)] | C.j in G};
+>      assert IsCentral (C, g);
+>      o := LMGFactoredOrder (C);
+>      a := ClassicalClassSize (G, g);
+>      assert a eq X[i][2];
+>      CO := ClassicalCentraliserOrder (G, g);
+>      assert o eq CO;
+>      end for;
+>   end for;
+> end for;
+linear 2 2 #X is 3
+linear 2 3 #X is 7
+linear 2 4 #X is 5
+linear 3 2 #X is 6
+linear 3 3 #X is 12
+linear 3 4 #X is 28
+linear 4 2 #X is 14
+linear 4 3 #X is 51
+linear 4 4 #X is 84
+linear 5 2 #X is 27
+linear 5 3 #X is 116
+linear 5 4 #X is 335
+linear 6 2 #X is 60
+linear 6 3 #X is 396
+linear 6 4 #X is 1400
+> 
+> "Symplectic groups";
+Symplectic groups
+> for d in [start..last by 2] do
+>    for q in [2,3,4] do
+>      G := Sp (d, q);
+> if Natural then G := MyRandomConjugate (G); end if;
+>      X := Classes (G);
+>      "symplectic", d, q, "#X is", #X;
+>      eta := ClassMap (G);
+>      for i in [1..#X] do 
+>      g := X[i][3];
+>      x := Random (G);
+>      flag, h := ClassicalIsConjugate (G, g, g^x);
+>      assert flag;
+>      assert h in G;
+>      assert g^(h) eq g^x;
+>      C := Centralizer (G, g);
+>      assert forall{j: j in [1..Ngens (C)] | C.j in G};
+>      assert IsCentral (C, g);
+>      o := LMGFactoredOrder (C);
+>      a := ClassicalClassSize (G, g);
+>      assert a eq X[i][2];
+>      CO := ClassicalCentraliserOrder (G, g);
+>      assert o eq CO;
+>      j := eta (X[i][3]^Random (G));
+>      assert j eq i;
+>      end for;
+> if d gt 2 or q gt 3 then 
+>      "Construct unipotent for each ss d =", d, "q = ", q;
+>      Y:=[ClassesForFixedSemisimple (G, X[l][3]):  l in [1..#X] | IsSemisimple 
+(X[l][3])]; 
+>      count := &+[#y: y in Y];
+>      assert count eq #X;
+> end if;
+>   end for;
+> end for;
+symplectic 2 2 #X is 3
+symplectic 2 3 #X is 7
+symplectic 2 4 #X is 5
+Construct unipotent for each ss d = 2 q =  4
+symplectic 4 2 #X is 11
+Construct unipotent for each ss d = 4 q =  2
+symplectic 4 3 #X is 34
+Construct unipotent for each ss d = 4 q =  3
+symplectic 4 4 #X is 27
+Construct unipotent for each ss d = 4 q =  4
+symplectic 6 2 #X is 30
+Construct unipotent for each ss d = 6 q =  2
+symplectic 6 3 #X is 141
+Construct unipotent for each ss d = 6 q =  3
+symplectic 6 4 #X is 120
+Construct unipotent for each ss d = 6 q =  4
+> 
+> 
+> "GO -";
+GO -
+>  for d in [start..last by 2] do
+>    for q in [2,3,4,5] do
+>      G := GOMinus (d, q);
+> if Natural then G := MyRandomConjugate (G); end if;
+>      X := Classes (G);
+>      "GO-", d, q, "#X is", #X;
+>      "Set up class map";
+>      eta := ClassMap (G);
+>      for i in [1..#X] do 
+>      g := X[i][3];
+>      x := Random (G);
+>      flag, h := ClassicalIsConjugate (G, g, g^x);
+>      assert flag;
+>      assert h in G;
+>      assert g^(h) eq g^x;
+>      C := Centralizer (G, g);
+>      assert forall{j: j in [1..Ngens (C)] | C.j in G};
+>      o := LMGFactoredOrder (C);
+>      a := ClassicalClassSize (G, g);
+>      assert a eq X[i][2];
+>      CO := ClassicalCentraliserOrder (G, g);
+>      assert o eq CO;
+>      j := eta (X[i][3]^Random (G));
+>      assert j eq i;
+>      end for;
+>      if (d gt 2 or q gt 3) and CountSS then 
+>      "Construct unipotent for each ss d =", d, "q = ", q;
+>      Y:=[ClassesForFixedSemisimple (G, X[l][3]):  l in [1..#X] | IsSemisimple 
+(X[l][3])]; 
+>      count := &+[#y: y in Y];
+>      assert count eq #X;
+>      end if;
+>   end for;
+> end for;
+GO- 2 2 #X is 3
+Set up class map
+GO- 2 3 #X is 5
+Set up class map
+GO- 2 4 #X is 4
+Set up class map
+Construct unipotent for each ss d = 2 q =  4
+GO- 2 5 #X is 6
+Set up class map
+Construct unipotent for each ss d = 2 q =  5
+GO- 4 2 #X is 7
+Set up class map
+Construct unipotent for each ss d = 4 q =  2
+GO- 4 3 #X is 22
+Set up class map
+Construct unipotent for each ss d = 4 q =  3
+GO- 4 4 #X is 16
+Set up class map
+Construct unipotent for each ss d = 4 q =  4
+GO- 4 5 #X is 36
+Set up class map
+Construct unipotent for each ss d = 4 q =  5
+GO- 6 2 #X is 25
+Set up class map
+Construct unipotent for each ss d = 6 q =  2
+GO- 6 3 #X is 102
+Set up class map
+Construct unipotent for each ss d = 6 q =  3
+GO- 6 4 #X is 86
+Set up class map
+Construct unipotent for each ss d = 6 q =  4
+GO- 6 5 #X is 232
+Set up class map
+Construct unipotent for each ss d = 6 q =  5
+> 
+> "GO+";
+GO+
+> for d in [start..last by 2] do
+>   for q in [2, 3,4,5] do
+>      G := GOPlus (d, q);
+> if Natural then 
+> G := MyRandomConjugate (G); if assigned G`Order then delete G`Order; end if;
+> end if;
+>      X := Classes (G);
+> "Set up class map";
+>      eta := ClassMap (G);
+>      for i in [1..#X] do 
+>      g := X[i][3];
+>      x := Random (G);
+>      flag, h := ClassicalIsConjugate (G, g, g^x);
+>      assert flag;
+>      assert h in G;
+>      assert g^(h) eq g^x;
+>      C := Centralizer (G, g);
+>      assert forall{j: j in [1..Ngens (C)] | C.j in G};
+>      assert IsCentral (C, g);
+>      o := LMGFactoredOrder (C);
+>      a := ClassicalClassSize (G, g);
+>      assert a eq X[i][2];
+>      CO := ClassicalCentraliserOrder (G, g);
+>      assert o eq CO;
+>      j := eta (X[i][3]^Random (G));
+>      assert i eq j;
+>      end for;
+>      if CountSS then 
+>      "Construct unipotent for each ss d =", d, "q = ", q;
+>      Y:=[ClassesForFixedSemisimple (G, X[l][3]):  l in [1..#X] | IsSemisimple 
+(X[l][3])]; 
+>      count := &+[#y: y in Y];
+>      assert count eq #X;
+>       end if;
+>   end for;
+> end for;
+Set up class map
+Construct unipotent for each ss d = 2 q =  2
+Set up class map
+Construct unipotent for each ss d = 2 q =  3
+Set up class map
+Construct unipotent for each ss d = 2 q =  4
+Set up class map
+Construct unipotent for each ss d = 2 q =  5
+Set up class map
+Construct unipotent for each ss d = 4 q =  2
+Set up class map
+Construct unipotent for each ss d = 4 q =  3
+Set up class map
+Construct unipotent for each ss d = 4 q =  4
+Set up class map
+Construct unipotent for each ss d = 4 q =  5
+Set up class map
+Construct unipotent for each ss d = 6 q =  2
+Set up class map
+Construct unipotent for each ss d = 6 q =  3
+Set up class map
+Construct unipotent for each ss d = 6 q =  4
+Set up class map
+Construct unipotent for each ss d = 6 q =  5
+> 
+> "SO -";
+SO -
+> for d in [start..last by 2] do
+>   for q in [2,3,4,5] do
+>      G := SOMinus (d, q);
+> if Natural then 
+> G := MyRandomConjugate (G);
+> end if;
+>      X := Classes (G);
+>      "SO-", d, q, "#X is", #X;
+> "Set up class map";
+>      eta := ClassMap (G);
+>      for i in [1..#X] do 
+>      g := X[i][3];
+>      x := Random (G);
+>      flag, h := ClassicalIsConjugate (G, g, g^x);
+>      assert flag;
+>      assert h in G;
+>      assert g^(h) eq g^x;
+>      C := Centralizer (G, g);
+>      assert forall{j: j in [1..Ngens (C)] | C.j in G};
+>      assert IsCentral (C, g);
+>      o := LMGFactoredOrder (C);
+>      a := ClassicalClassSize (G, g);
+>      assert a eq X[i][2];
+>      CO := ClassicalCentraliserOrder (G, g);
+>      assert o eq CO;
+>      j := eta (X[i][3]^Random (G));
+>      assert i eq j;
+>      end for;
+>     if (d gt 2 or q gt 3) and CountSS then 
+>      "Construct unipotent for each ss d =", d, "q = ", q;
+>      Y:=[ClassesForFixedSemisimple (G, X[l][3]):  l in [1..#X] | IsSemisimple 
+(X[l][3])]; 
+>      count := &+[#y: y in Y];
+>      assert count eq #X;
+>      end if;
+>   end for;
+> end for;
+SO- 2 2 #X is 3
+Set up class map
+SO- 2 3 #X is 4
+Set up class map
+SO- 2 4 #X is 4
+Set up class map
+Construct unipotent for each ss d = 2 q =  4
+SO- 2 5 #X is 6
+Set up class map
+Construct unipotent for each ss d = 2 q =  5
+SO- 4 2 #X is 7
+Set up class map
+Construct unipotent for each ss d = 4 q =  2
+SO- 4 3 #X is 14
+Set up class map
+Construct unipotent for each ss d = 4 q =  3
+SO- 4 4 #X is 16
+Set up class map
+Construct unipotent for each ss d = 4 q =  4
+SO- 4 5 #X is 30
+Set up class map
+Construct unipotent for each ss d = 4 q =  5
+SO- 6 2 #X is 25
+Set up class map
+Construct unipotent for each ss d = 6 q =  2
+SO- 6 3 #X is 66
+Set up class map
+Construct unipotent for each ss d = 6 q =  3
+SO- 6 4 #X is 86
+Set up class map
+Construct unipotent for each ss d = 6 q =  4
+SO- 6 5 #X is 194
+Set up class map
+Construct unipotent for each ss d = 6 q =  5
+> 
+> 
+> "SO +";
+SO +
+> for d in [start..last by 2] do
+>   for q in [2,3,4,5] do
+>      G := SOPlus (d, q);
+> if Natural then 
+> G := MyRandomConjugate (G);
+> end if;
+>      X := Classes (G);
+>      "SO+", d, q, "#X is", #X;
+>      // if not (d eq 2 and (IsOdd (q) or q in {2})) then 
+> "Set up class map";
+>      eta := ClassMap (G);
+>      for i in [1..#X] do 
+>      g := X[i][3];
+>      x := Random (G);
+>      flag, h := ClassicalIsConjugate (G, g, g^x);
+>      assert flag;
+>       assert h in G;
+>      assert g^(h) eq g^x;
+>      C := Centralizer (G, g);
+>       assert forall{j: j in [1..Ngens (C)] | C.j in G};
+>      assert IsCentral (C, g);
+>      o := LMGFactoredOrder (C);
+>      a := ClassicalClassSize (G, g);
+>      assert a eq X[i][2];
+>      CO := ClassicalCentraliserOrder (G, g);
+>      assert o eq CO;
+>      j := eta (X[i][3]^Random (G));
+>      assert i eq j;
+>      end for;
+>      if CountSS  then 
+>      "Construct unipotent for each ss d =", d, "q = ", q;
+>      Y:=[ClassesForFixedSemisimple (G, X[l][3]):  l in [1..#X] | IsSemisimple 
+(X[l][3])]; 
+>      count := &+[#y: y in Y];
+>      assert count eq #X;
+>      end if;
+>   end for;
+> end for;
+SO+ 2 2 #X is 2
+Set up class map
+Construct unipotent for each ss d = 2 q =  2
+SO+ 2 3 #X is 2
+Set up class map
+Construct unipotent for each ss d = 2 q =  3
+SO+ 2 4 #X is 3
+Set up class map
+Construct unipotent for each ss d = 2 q =  4
+SO+ 2 5 #X is 4
+Set up class map
+Construct unipotent for each ss d = 2 q =  5
+SO+ 4 2 #X is 9
+Set up class map
+Construct unipotent for each ss d = 4 q =  2
+SO+ 4 3 #X is 20
+Set up class map
+Construct unipotent for each ss d = 4 q =  3
+SO+ 4 4 #X is 20
+Set up class map
+Construct unipotent for each ss d = 4 q =  4
+SO+ 4 5 #X is 40
+Set up class map
+Construct unipotent for each ss d = 4 q =  5
+SO+ 6 2 #X is 22
+Set up class map
+Construct unipotent for each ss d = 6 q =  2
+SO+ 6 3 #X is 58
+Set up class map
+Construct unipotent for each ss d = 6 q =  3
+SO+ 6 4 #X is 81
+Set up class map
+Construct unipotent for each ss d = 6 q =  4
+SO+ 6 5 #X is 182
+Set up class map
+Construct unipotent for each ss d = 6 q =  5
+> 
+> "Omega +";
+Omega +
+> for d in [start..last by 2] do
+>   for q in [2,3,4,5,8] do
+>      G := OmegaPlus (d, q);
+> if Natural then 
+> G := MyRandomConjugate (G);
+> end if;
+>      X := Classes (G);
+>      "Omega+", d, q, "#X is", #X;
+> "Set up class map";
+>      eta := ClassMap (G);
+>      for i in [1..#X] do 
+>      g := X[i][3];
+>      x := Random (G);
+>      flag, h := ClassicalIsConjugate (G, g, g^x);
+>      assert flag;
+>       assert h in G;
+>      assert g^(h) eq g^x;
+>      C := Centralizer (G, g);
+>      assert forall{j: j in [1..Ngens (C)] | C.j in G};
+>      assert IsCentral (C, g);
+>      o := LMGFactoredOrder (C);
+>      a := ClassicalClassSize (G, g);
+>      assert a eq X[i][2];
+>      CO := ClassicalCentraliserOrder (G, g);
+>      assert o eq CO;
+>      j := eta (X[i][3]^Random (G));
+>      assert i eq j;
+>      end for;
+>      if CountSS then 
+>      // "\n\n\n Construct unipotent for each ss d =", d, "q = ", q;
+>      time Y:=[ClassesForFixedSemisimple (G, X[l][3]):  l in [1..#X] | 
+IsSemisimple (X[l][3])]; 
+>      count := &+[#y: y in Y];
+>      assert count eq #X;
+>      end if;
+>   end for;
+> end for;
+Omega+ 2 2 #X is 1
+Set up class map
+Time: 0.000
+Omega+ 2 3 #X is 1
+Set up class map
+Time: 0.000
+Omega+ 2 4 #X is 3
+Set up class map
+Time: 0.010
+Omega+ 2 5 #X is 2
+Set up class map
+Time: 0.000
+Omega+ 2 8 #X is 7
+Set up class map
+Time: 0.010
+Omega+ 4 2 #X is 9
+Set up class map
+Time: 0.020
+Omega+ 4 3 #X is 25
+Set up class map
+Time: 0.020
+Omega+ 4 4 #X is 25
+Set up class map
+Time: 0.050
+Omega+ 4 5 #X is 41
+Set up class map
+Time: 0.040
+Omega+ 4 8 #X is 81
+Set up class map
+Time: 0.190
+Omega+ 6 2 #X is 14
+Set up class map
+Time: 0.040
+Omega+ 6 3 #X is 29
+Set up class map
+Time: 0.060
+Omega+ 6 4 #X is 84
+Set up class map
+Time: 0.260
+Omega+ 6 5 #X is 97
+Set up class map
+Time: 0.230
+Omega+ 6 8 #X is 584
+Set up class map
+Time: 2.000
+> 
+> "Omega -";
+Omega -
+> for d in [start..last by 2] do
+>   for q in [2,3,4,5,8] do
+>      G := OmegaMinus (d, q);
+> if Natural then 
+> G := MyRandomConjugate (G);
+> end if;
+>      X := Classes (G);
+>      "Omega-", d, q, "#X is", #X;
+>      // if not (d eq 2) then 
+>      if TestMap then 
+> "Set up class map";
+>      eta := ClassMap (G);
+>      end if;
+>      for i in [1..#X] do 
+>      g := X[i][3];
+>      x := Random (G);
+>      flag, h := ClassicalIsConjugate (G, g, g^x);
+>      assert flag;
+>       assert h in G;
+>      assert g^(h) eq g^x;
+>      C := Centralizer (G, g);
+>       assert forall{j: j in [1..Ngens (C)] | C.j in G};
+>      assert IsCentral (C, g);
+>      o := LMGFactoredOrder (C);
+>      a := ClassicalClassSize (G, g);
+>      assert a eq X[i][2];
+>      CO := ClassicalCentraliserOrder (G, g);
+>      assert o eq CO;
+>      j := eta (X[i][3]^Random (G));
+>      assert i eq j;
+>      end for;
+>      if CountSS then 
+>      "Construct unipotent for each ss d =", d, "q = ", q;
+>      Y:=[ClassesForFixedSemisimple (G, X[l][3]):  l in [1..#X] | IsSemisimple 
+(X[l][3])]; 
+>      count := &+[#y: y in Y];
+>      assert count eq #X;
+>      end if;
+>   end for;
+> end for;
+Omega- 2 2 #X is 3
+Set up class map
+Construct unipotent for each ss d = 2 q =  2
+Omega- 2 3 #X is 2
+Set up class map
+Construct unipotent for each ss d = 2 q =  3
+Omega- 2 4 #X is 5
+Set up class map
+Construct unipotent for each ss d = 2 q =  4
+Omega- 2 5 #X is 3
+Set up class map
+Construct unipotent for each ss d = 2 q =  5
+Omega- 2 8 #X is 9
+Set up class map
+Construct unipotent for each ss d = 2 q =  8
+Omega- 4 2 #X is 5
+Set up class map
+Construct unipotent for each ss d = 4 q =  2
+Omega- 4 3 #X is 7
+Set up class map
+Construct unipotent for each ss d = 4 q =  3
+Omega- 4 4 #X is 17
+Set up class map
+Construct unipotent for each ss d = 4 q =  4
+Omega- 4 5 #X is 15
+Set up class map
+Construct unipotent for each ss d = 4 q =  5
+Omega- 4 8 #X is 65
+Set up class map
+Construct unipotent for each ss d = 4 q =  8
+Omega- 6 2 #X is 20
+Set up class map
+Construct unipotent for each ss d = 6 q =  2
+Omega- 6 3 #X is 39
+Set up class map
+Construct unipotent for each ss d = 6 q =  3
+Omega- 6 4 #X is 94
+Set up class map
+Construct unipotent for each ss d = 6 q =  4
+Omega- 6 5 #X is 97
+Set up class map
+Construct unipotent for each ss d = 6 q =  5
+Omega- 6 8 #X is 602
+Set up class map
+Construct unipotent for each ss d = 6 q =  8
+> 
+> "GO";
+GO
+> for d in [start+1..last+1 by 2] do
+>   for q in [3,5,7] do
+>      G := GO (d, q);
+> if Natural then 
+> G := MyRandomConjugate (G);
+> end if;
+>      X := Classes (G);
+>      "GO", d, q, "#X is", #X;
+> "Set up class map";
+>      eta := ClassMap (G);
+>      for i in [1..#X] do 
+>      g := X[i][3];
+>      x := Random (G);
+>      flag, h := ClassicalIsConjugate (G, g, g^x);
+>      assert flag;
+>       assert h in G;
+>      assert g^(h) eq g^x;
+>      C := Centralizer (G, g);
+>       assert forall{j: j in [1..Ngens (C)] | C.j in G};
+>      assert IsCentral (C, g);
+>      o := LMGFactoredOrder (C);
+>      a := ClassicalClassSize (G, g);
+>      assert a eq X[i][2];
+>      CO := ClassicalCentraliserOrder (G, g);
+>      assert o eq CO;
+>      j := eta (X[i][3]^Random (G));
+>      assert i eq j;
+>      end for;
+>      if CountSS then 
+>      "Construct unipotent for each ss d =", d, "q = ", q;
+>      Y:=[ClassesForFixedSemisimple (G, X[l][3]):  l in [1..#X] | IsSemisimple 
+(X[l][3])]; 
+>      count := &+[#y: y in Y];
+>      assert count eq #X;
+>      end if;
+>   end for;
+> end for;
+GO 3 3 #X is 10
+Set up class map
+Construct unipotent for each ss d = 3 q =  3
+GO 3 5 #X is 14
+Set up class map
+Construct unipotent for each ss d = 3 q =  5
+GO 3 7 #X is 18
+Set up class map
+Construct unipotent for each ss d = 3 q =  7
+GO 5 3 #X is 50
+Set up class map
+Construct unipotent for each ss d = 5 q =  3
+GO 5 5 #X is 94
+Set up class map
+Construct unipotent for each ss d = 5 q =  5
+GO 5 7 #X is 154
+Set up class map
+Construct unipotent for each ss d = 5 q =  7
+GO 7 3 #X is 196
+Set up class map
+Construct unipotent for each ss d = 7 q =  3
+GO 7 5 #X is 528
+Set up class map
+Construct unipotent for each ss d = 7 q =  5
+GO 7 7 #X is 1148
+Set up class map
+Construct unipotent for each ss d = 7 q =  7
+> 
+> 
+> "SO";
+SO
+> for d in [start+1..last + 1 by 2] do
+>   for q in [3,5,7] do
+>      G := SO (d, q);
+> if Natural then 
+> G := MyRandomConjugate (G);
+> end if;
+>      X := Classes (G);
+>      "SO", d, q, "#X is", #X;
+>      "Setup class map";
+>      eta := ClassMap (G);
+>      for i in [1..#X] do 
+>      g := X[i][3];
+>      x := Random (G);
+>      flag, h := ClassicalIsConjugate (G, g, g^x);
+>      assert flag;
+>      assert h in G;
+>      assert g^(h) eq g^x;
+>      C := Centralizer (G, g);
+>     assert forall{j: j in [1..Ngens (C)] | C.j in G};
+>      assert IsCentral (C, g);
+>      o := LMGFactoredOrder (C);
+>      a := ClassicalClassSize (G, g);
+>      assert a eq X[i][2];
+>      CO := ClassicalCentraliserOrder (G, g);
+>      assert o eq CO;
+>      j := eta (X[i][3]^Random (G));
+>      assert i eq j;
+>      end for;
+>      if CountSS then 
+>      "Construct unipotent for each ss d =", d, "q = ", q;
+>      Y:=[ClassesForFixedSemisimple (G, X[l][3]):  l in [1..#X] | IsSemisimple 
+(X[l][3])]; 
+>      count := &+[#y: y in Y];
+>      assert count eq #X;
+>      end if;
+>   end for;
+> end for;
+SO 3 3 #X is 5
+Setup class map
+Construct unipotent for each ss d = 3 q =  3
+SO 3 5 #X is 7
+Setup class map
+Construct unipotent for each ss d = 3 q =  5
+SO 3 7 #X is 9
+Setup class map
+Construct unipotent for each ss d = 3 q =  7
+SO 5 3 #X is 25
+Setup class map
+Construct unipotent for each ss d = 5 q =  3
+SO 5 5 #X is 47
+Setup class map
+Construct unipotent for each ss d = 5 q =  5
+SO 5 7 #X is 77
+Setup class map
+Construct unipotent for each ss d = 5 q =  7
+SO 7 3 #X is 98
+Setup class map
+Construct unipotent for each ss d = 7 q =  3
+SO 7 5 #X is 264
+Setup class map
+Construct unipotent for each ss d = 7 q =  5
+SO 7 7 #X is 574
+Setup class map
+Construct unipotent for each ss d = 7 q =  7
+> 
+> "Omega";
+Omega
+> for d in [start+1..last+1 by 2] do
+>   for q in [3,5,7] do
+>      G := Omega (d, q);
+> if Natural then 
+> G := MyRandomConjugate (G);
+> end if;
+>      X := Classes (G);
+>      "Omega", d, q, "#X is", #X;
+>      "Set up class map";
+>      eta := ClassMap (G);
+>      for i in [1..#X] do 
+>      g := X[i][3];
+>      x := Random (G);
+>      flag, h := ClassicalIsConjugate (G, g, g^x);
+>      assert flag;
+>       assert h in G;
+>      assert g^(h) eq g^x;
+>      C := Centralizer (G, g);
+>       assert forall{j: j in [1..Ngens (C)] | C.j in G};
+>      assert IsCentral (C, g);
+>      o := LMGFactoredOrder (C);
+>      a := ClassicalClassSize (G, g);
+>      assert a eq X[i][2];
+>      CO := ClassicalCentraliserOrder (G, g);
+>      assert o eq CO;
+>      j := eta (X[i][3]^Random (G));
+>      assert i eq j;
+>      end for;
+>      "Construct unipotent for each ss d =", d, "q = ", q;
+>      Y:=[ClassesForFixedSemisimple (G, X[l][3]):  l in [1..#X] | IsSemisimple 
+(X[l][3])]; 
+>      count := &+[#y: y in Y];
+>      assert count eq #X;
+>   end for;
+> end for;
+Omega 3 3 #X is 4
+Set up class map
+Construct unipotent for each ss d = 3 q =  3
+Omega 3 5 #X is 5
+Set up class map
+Construct unipotent for each ss d = 3 q =  5
+Omega 3 7 #X is 6
+Set up class map
+Construct unipotent for each ss d = 3 q =  7
+Omega 5 3 #X is 20
+Set up class map
+Construct unipotent for each ss d = 5 q =  3
+Omega 5 5 #X is 34
+Set up class map
+Construct unipotent for each ss d = 5 q =  5
+Omega 5 7 #X is 52
+Set up class map
+Construct unipotent for each ss d = 5 q =  7
+Omega 7 3 #X is 58
+Set up class map
+Construct unipotent for each ss d = 7 q =  3
+Omega 7 5 #X is 144
+Set up class map
+Construct unipotent for each ss d = 7 q =  5
+Omega 7 7 #X is 302
+Set up class map
+Construct unipotent for each ss d = 7 q =  7
+> 
+> "Unitary GU";
+Unitary GU
+> for d in [start - 1..last_U] do
+>   for q in [2,3,4,5] do
+>      G := GU (d, q);
+> if d eq 6 and q eq 5 then continue; end if;
+> if Natural then 
+> G := MyRandomConjugate (G);
+> end if;
+>      X := Classes (G);
+>      d, q, "#X is", #X;
+>      eta := ClassMap (G);
+>      for i in [1..#X] do 
+>      g := X[i][3];
+>      x := Random (G);
+>      flag, h := ClassicalIsConjugate (G, g, g^x);
+>      assert flag;
+>      assert h in G;
+>      assert g^(h) eq g^x;
+>      C := Centralizer (G, g);
+>      assert forall{j: j in [1..Ngens (C)] | C.j in G};
+>      assert IsCentral (C, g);
+>      o := LMGFactoredOrder (C);
+>      a := ClassicalClassSize (G, g);
+>      assert a eq X[i][2];
+>      CO := ClassicalCentraliserOrder (G, g);
+>      assert o eq CO;
+>      if TestMap then 
+>      j := eta (X[i][3]^Random (G));
+>      assert i eq j;
+>      end if;
+>      end for;
+>      "Construct unipotent for each ss d =", d, "q = ", q;
+>      Y:=[ClassesForFixedSemisimple (G, X[l][3]):  l in [1..#X] | IsSemisimple 
+(X[l][3])]; 
+>      count := &+[#y: y in Y];
+>      assert count eq #X;
+>   end for;
+> end for;
+1 2 #X is 3
+Construct unipotent for each ss d = 1 q =  2
+1 3 #X is 4
+Construct unipotent for each ss d = 1 q =  3
+1 4 #X is 5
+Construct unipotent for each ss d = 1 q =  4
+1 5 #X is 6
+Construct unipotent for each ss d = 1 q =  5
+2 2 #X is 9
+Construct unipotent for each ss d = 2 q =  2
+2 3 #X is 16
+Construct unipotent for each ss d = 2 q =  3
+2 4 #X is 25
+Construct unipotent for each ss d = 2 q =  4
+2 5 #X is 36
+Construct unipotent for each ss d = 2 q =  5
+3 2 #X is 24
+Construct unipotent for each ss d = 3 q =  2
+3 3 #X is 56
+Construct unipotent for each ss d = 3 q =  3
+3 4 #X is 110
+Construct unipotent for each ss d = 3 q =  4
+3 5 #X is 192
+Construct unipotent for each ss d = 3 q =  5
+4 2 #X is 60
+Construct unipotent for each ss d = 4 q =  2
+4 3 #X is 188
+Construct unipotent for each ss d = 4 q =  3
+4 4 #X is 470
+Construct unipotent for each ss d = 4 q =  4
+4 5 #X is 1002
+Construct unipotent for each ss d = 4 q =  5
+> 
+> "Unitary SU";
+Unitary SU
+> for d in [start..last_U] do
+>   for q in [2,3,4,5] do
+>      G := SU (d, q);
+> if d eq 6 and q eq 5 then continue; end if;
+> if Natural then 
+> G := MyRandomConjugate (G);
+> end if;
+>      X := Classes (G);
+>      d, q, "#X is", #X;
+>      eta := ClassMap (G);
+>      for i in [1..#X] do 
+>      g := X[i][3];
+>      x := Random (G);
+>      flag, h := ClassicalIsConjugate (G, g, g^x);
+>      assert flag;
+>      assert h in G;
+>      assert g^(h) eq g^x;
+>      C := Centralizer (G, g);
+>      assert forall{j: j in [1..Ngens (C)] | C.j in G};
+>      assert IsCentral (C, g);
+>      o := LMGFactoredOrder (C);
+>      a := ClassicalClassSize (G, g);
+>      assert a eq X[i][2];
+>      CO := ClassicalCentraliserOrder (G, g);
+>      assert o eq CO;
+>      j := eta (X[i][3]^Random (G));
+>      end for;
+>      "Construct unipotent for each ss d =", d, "q = ", q;
+>      Y:=[ClassesForFixedSemisimple (G, X[l][3]):  l in [1..#X] | IsSemisimple 
+(X[l][3])]; 
+>      count := &+[#y: y in Y];
+>      assert count eq #X;
+>   end for;
+> end for;
+2 2 #X is 3
+Construct unipotent for each ss d = 2 q =  2
+2 3 #X is 7
+Construct unipotent for each ss d = 2 q =  3
+2 4 #X is 5
+Construct unipotent for each ss d = 2 q =  4
+2 5 #X is 9
+Construct unipotent for each ss d = 2 q =  5
+3 2 #X is 16
+Construct unipotent for each ss d = 3 q =  2
+3 3 #X is 14
+Construct unipotent for each ss d = 3 q =  3
+3 4 #X is 22
+Construct unipotent for each ss d = 3 q =  4
+3 5 #X is 40
+Construct unipotent for each ss d = 3 q =  5
+4 2 #X is 20
+Construct unipotent for each ss d = 4 q =  2
+4 3 #X is 71
+Construct unipotent for each ss d = 4 q =  3
+4 4 #X is 94
+Construct unipotent for each ss d = 4 q =  4
+4 5 #X is 185
+Construct unipotent for each ss d = 4 q =  5
+> exit;
+
+Total time: 342.300 seconds, Total memory usage: 121.00MB

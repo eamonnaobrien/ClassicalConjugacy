@@ -1,0 +1,48 @@
+{
+   Gen-Classes.m
+   Gen-IsConjugate.m
+   Gen-Centralizer.m
+   Gen-Label.m
+   fixed-ss.m
+   MaxDeterminant.m
+   UnipotentElements.m
+   ProjClasses.m
+   size.m
+   CentralizerOrder.m
+   spin-classes.m
+#   attributes.m
+
+translate 
+{
+  CorrectLabel.m
+}
+
+unipotent
+{
+  +unipotent.spec
+central
+{
++central.spec
+}
+conjugation
+{
+   centraliser.m
+   is-conjugate.m
+odd
+{
+  +odd.spec
+}
+even
+{
+  +even.spec
+}
+}
+}
+semisimple
+{
+  +ss.spec
+}
+linear 
+{ 
+  +sl.spec
+}

@@ -1,0 +1,12 @@
+{
+util.m
+good-char.m
+odd-char.m
+even-char.m
+classes.m
+IsConjugate.m
+Centraliser.m
+Centraliser-Order.m
+Sp-Orthogonal-order.m
+ClassMap.m
+}

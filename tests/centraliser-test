@@ -1,0 +1,25 @@
+AttachSpec ("../Classes.spec");
+Z:=Integers ();
+
+d := 5;
+q := 5^2;
+for d in [8] do 
+C, L := UnipotentClasses ("GO+", d, q);
+G := GOPlus (d, q);
+for i in [1..#C] do
+   "i = ", d, i;
+   g := C[i][3];
+   E := ClassicalCentraliser (G, g);
+A, B := GetSeed ();
+   D := sub<Generic (E) | Generators (E)>;
+   T := CompositionTree (D);
+   assert CompositionTreeVerify (D);
+   o := LMGOrder (D);
+   a := #G div C[i][2];
+   assert o eq a;
+   y := ClassicalCentraliserOrder (G, g);
+   assert Z!y eq o;
+end for;
+
+end for;
+
