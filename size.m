@@ -140,7 +140,7 @@ OrthogonalType := function (G)
 end function;
 
 // return type GL / SL / GU / SU / Sp / GO+ / SO+ / Omega+ / ... for G
-GroupType := function (G: Limit := 5) 
+GroupType := function (G) 
 
    if assigned G`ClassicalType then 
       return true, G`ClassicalType;
@@ -153,9 +153,10 @@ GroupType := function (G: Limit := 5)
       if flag then return true, "GU"; else return true, "GL"; end if;
    end if;
 
+   if d le 8 and q le 9 then Limit := 5; else Limit := 2; end if;
    nmr := 0;
    repeat
-      flag := RecognizeClassical (G);
+      flag := RecognizeClassical (G : NumberOfElements := 30);
       nmr +:= 1;
    until flag or nmr gt Limit;
    if not flag then
