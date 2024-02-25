@@ -8,6 +8,9 @@ import "unipotent/util.m": MySpinorNorm;
 import "CentralizerOrder.m": MyCentraliserOrder;
 import "Gen-Label.m": TransformMatrix, StandardGroup;
 
+// code prepared by Eamonn O'Brien and Don Taylor
+// builds on RecogniseClassical returning boolean and precise name 
+
 // return quadratic form when G is orthogonal and reducible 
 FormsReducibleCase := function (G, type)
    F := BaseRing (G);
@@ -130,8 +133,6 @@ OrthogonalType := function (G)
               else
               case< type | "orthogonalplus" : "ExtOmega+", "orthogonalminus" : "ExtOmega-",
                       default : "ExtOmega" >;
-//           type := case< type | "orthogonalplus" : "ExtOmega+", "orthogonalminus" : "ExtOmega-",
-//                   default : "ExtOmega" >;
         end if;
       end if;
    end if;
@@ -153,12 +154,12 @@ GroupType := function (G)
       if flag then return true, "GU"; else return true, "GL"; end if;
    end if;
 
-   if d le 8 and q le 9 then Limit := 5; else Limit := 2; end if;
+   if d le 8 and q le 9 then Limit := 4; else Limit := 2; end if;
    nmr := 0;
    repeat
       flag := RecognizeClassical (G : NumberOfElements := 30);
       nmr +:= 1;
-   until flag or nmr gt Limit;
+   until flag or nmr ge Limit;
    if not flag then
       vprint Classical : "Input group appears not to be classical";
       return false, _;
@@ -192,7 +193,6 @@ GroupType := function (G)
             G`FactoredOrder := FactoredOrder(SU(d,q0)) * Factorisation(m);
          end if;
          type := case< m | q - 1 : "CGU", GCD(d,q0 - 1) : "CSU", default : "AltSU" >;
-//         type := m eq (q - 1) select "CGU" else "AltSU";
       end if;
    elif type eq "symplectic" then
       if SymplecticForm(G) then
@@ -224,7 +224,6 @@ RecogniseGOEven := function (G)
 
    // difficult cases 
    if q eq 2 then 
-      // if d eq 3 and IdentifyGroup (G) cmpeq <6, 1> then 
       if d eq 3 then
 	  BSGS(G);
 	  if #G eq 6 and IdentifyGroup (G) cmpeq <6, 1> then
@@ -232,7 +231,6 @@ RecogniseGOEven := function (G)
 	      return true, "GO"; 
           end if;
       end if;
-      // if d eq 5 and LMGOrder(G) eq 720 and IdentifyGroup (G) cmpeq <720, 763> then 
       if d eq 5 then
 	  BSGS(G);
 	  if #G eq 720 and IdentifyGroup (G) cmpeq <720, 763> then
@@ -271,7 +269,6 @@ RecogniseGOEven := function (G)
       else
          qforms := SemiInvariantQuadraticForms(G);
          if IsEmpty(qforms) then return false, _; end if;
-//         assert not IsEmpty(qforms);
          factors := qforms[1,1];
       end if;
       U, phi := UnitGroup(F);
@@ -300,9 +297,7 @@ intrinsic ClassicalGroupType (G :: GrpMat[FldFin]) -> BoolElt, MonStgElt
    d := Degree (G); 
    F := BaseRing(G);
    q := #F;
-   if d le 3 and q le 4 then 
-    BSGS(G);
-   end if;
+   if d le 3 and q le 4 then BSGS(G); end if;
 
    if d eq 2 and q le 4 then 
       type := ClassicalType (G);
